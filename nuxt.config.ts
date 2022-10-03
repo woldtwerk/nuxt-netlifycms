@@ -6,10 +6,10 @@ export default defineNuxtConfig({
   modules: ['@nuxt/content'],
   runtimeConfig: {
     public: {
-      githubRepository: ''
+      githubRepository: GITHUB_REPOSITORY ?? ''
     },
   },
   app: {
-    baseURL: GITHUB_REPOSITORY ? GITHUB_REPOSITORY.split('/').at(-1) : '/',
+    baseURL: GITHUB_REPOSITORY ? `/${GITHUB_REPOSITORY.split('/').at(-1)}` : '/',
   }
 })

@@ -12,5 +12,10 @@
     "@nuxt/content": "^2.1.0",
     "netlify-cms-core": "^2.55.2",
     "nuxt": "^3.0.0-rc.10"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "nuxt@3.0.0-rc.11": "patches/nuxt@3.0.0-rc.11.patch"
+    }
   }
 }

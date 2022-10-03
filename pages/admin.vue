@@ -40,6 +40,7 @@ onMounted(() => {
           repo: config.public.githubRepository
         }
       }),
+      load_config_file: false,
       locale: 'de',
       media_folder: 'public/uploads/media',
       public_folder: '/img',

@@ -1,0 +1,35 @@
+diff --git a/dist/app/composables/payload.mjs b/dist/app/composables/payload.mjs
+index 8f277d5d82c0d452b4e87bd91bd2c5029e02006c..cab7d1b03828047d70a12a92b913bc707a41a5d6 100644
+--- a/dist/app/composables/payload.mjs
++++ b/dist/app/composables/payload.mjs
+@@ -29,7 +29,7 @@ export function preloadPayload(url, opts = {}) {
+   });
+ }
+ function _getPayloadURL(url, opts = {}) {
+-  const parsed = parseURL(url);
++  const parsed = parseURL(joinURL(useRuntimeConfig().app.baseURL, url));
+   if (parsed.search) {
+     throw new Error("Payload URL cannot contain search params: " + url);
+   }
+diff --git a/dist/core/runtime/nitro/renderer.mjs b/dist/core/runtime/nitro/renderer.mjs
+index ae61b9f6f65850652a1b17a10953aaaf704b8028..d0e5d9ce631b22f279bba6909044a2bb622d1425 100644
+--- a/dist/core/runtime/nitro/renderer.mjs
++++ b/dist/core/runtime/nitro/renderer.mjs
+@@ -84,7 +84,7 @@ export default defineRenderHandler(async (event) => {
+     payload: ssrError ? { error: ssrError } : {}
+   };
+   const _PAYLOAD_EXTRACTION = process.env.prerender && process.env.NUXT_PAYLOAD_EXTRACTION && !ssrContext.noSSR;
+-  const payloadURL = _PAYLOAD_EXTRACTION ? joinURL(url, "_payload.js") : void 0;
++  const payloadURL = _PAYLOAD_EXTRACTION ? joinURL(useRuntimeConfig().app.baseURL, url, '_payload.js') : undefined
+   if (process.env.prerender) {
+     ssrContext.payload.prerenderedAt = Date.now();
+   }
+@@ -109,7 +109,7 @@ export default defineRenderHandler(async (event) => {
+     return response2;
+   }
+   if (_PAYLOAD_EXTRACTION) {
+-    appendHeader(event, "x-nitro-prerender", payloadURL);
++    appendHeader(event, "x-nitro-prerender", joinURL(url, '_payload.js'));
+     PAYLOAD_CACHE.set(url, renderPayloadResponse(ssrContext));
+   }
+   const renderedMeta = await ssrContext.renderMeta?.() ?? {};
