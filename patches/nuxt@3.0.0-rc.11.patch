@@ -1,8 +1,16 @@
 diff --git a/dist/app/composables/payload.mjs b/dist/app/composables/payload.mjs
-index 8f277d5d82c0d452b4e87bd91bd2c5029e02006c..cab7d1b03828047d70a12a92b913bc707a41a5d6 100644
+index 8f277d5d82c0d452b4e87bd91bd2c5029e02006c..88103dcad954855180737c1b064d4047deb5bbf1 100644
 --- a/dist/app/composables/payload.mjs
 +++ b/dist/app/composables/payload.mjs
-@@ -29,7 +29,7 @@ export function preloadPayload(url, opts = {}) {
+@@ -1,6 +1,7 @@
+ import { parseURL, joinURL } from "ufo";
+ import { useNuxtApp } from "../nuxt.mjs";
+ import { useHead } from "../index.mjs";
++import { useRuntimeConfig } from "#internal/nitro";
+ export function loadPayload(url, opts = {}) {
+   if (process.server) {
+     return null;
+@@ -29,7 +30,7 @@ export function preloadPayload(url, opts = {}) {
    });
  }
  function _getPayloadURL(url, opts = {}) {
