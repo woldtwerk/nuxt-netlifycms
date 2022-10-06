@@ -11,8 +11,12 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
+
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
         with: 
-          submodules: recursive
+          ref: content
+          path: content
 
       - name: Cache pnpm modules
         uses: actions/cache@v3
