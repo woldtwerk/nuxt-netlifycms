@@ -17,16 +17,11 @@ useHead({
       body: true
     },
   ],
-  // link: [
-  //   {
-  //     href: '/netlify-cms.yml', 
-  //     type: 'text/yaml',
-  //     rel: 'cms-config-url'
-  //   }
-  // ]
 })
 
 onMounted(() => {
+  const contentPrefix = import.meta.env.DEV ? 'content/' : ''
+
   NetlifyCmsApp.init({
     config: {
       ...(!config.public.githubRepository ? {
@@ -38,20 +33,23 @@ onMounted(() => {
         backend: {
           name: 'github',
           repo: config.public.githubRepository,
-          branch: config.public.githubRefName,
+          branch: 'content',
           base_url: 'https://netlify-cms-github-auth.woldtwerk.de',
           auth_endpoint: 'auth'
         }
       }),
       load_config_file: false,
       locale: 'de',
-      media_folder: 'public/uploads/media',
+      media_folder: `${contentPrefix}_uploads/media`,
       public_folder: '/img',
       collections: [
-        ...Object.values(
+        ...(Object.values(
           import.meta.glob('~/assets/collections/*.ts', { eager: true }))
           .map(col => (col as Record<string, any>).default
-          )
+          ).map(col => {
+            col.folder = `${contentPrefix}${col.folder}`
+            return col
+          }))
       ]
     }
   })

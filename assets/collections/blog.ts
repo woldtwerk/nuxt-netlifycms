@@ -3,7 +3,7 @@ import type { CmsCollection } from 'netlify-cms-core'
 export default {
   name: "blog",
   label: "Blog",
-  folder: "content/blog",
+  folder: "blog",
   create: true,
   slug: "{{year}}-{{month}}-{{day}}-{{slug}}",
   fields: [
