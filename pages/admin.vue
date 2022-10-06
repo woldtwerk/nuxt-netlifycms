@@ -37,7 +37,10 @@ onMounted(() => {
       } : {
         backend: {
           name: 'github',
-          repo: config.public.githubRepository
+          repo: config.public.githubRepository,
+          branch: config.public.githubRefName,
+          base_url: 'https://netlify-cms-github-auth.woldtwerk.de',
+          auth_endpoint: 'auth'
         }
       }),
       load_config_file: false,
