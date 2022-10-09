@@ -22,6 +22,10 @@ useHead({
 onMounted(() => {
   const contentPrefix = import.meta.env.DEV ? 'content/' : ''
 
+  Object.values(
+    import.meta.glob('~/components/cms/editor/*.ts', { eager: true }))
+    .forEach(comp => NetlifyCmsApp.registerEditorComponent((comp as any).default))
+
   NetlifyCmsApp.init({
     config: {
       ...(!config.public.githubRepository ? {
@@ -38,6 +42,9 @@ onMounted(() => {
           auth_endpoint: 'auth'
         }
       }),
+      editor: {
+        preview: false
+      },
       load_config_file: false,
       locale: 'de',
       media_folder: `${contentPrefix}_uploads/media`,
@@ -59,3 +66,32 @@ onMounted(() => {
 <template>
   <div></div>
 </template>
+
+<style global lang="postcss">
+#nc-root :is([class*="EditorContainer"], [class*="AppHeaderContent"], [class*="AppMainContainer"]) {
+  min-width: fit-content;
+}
+
+#nc-root :is([class*="CollectionMain"] > div, [class*="ListCard-card"]) {
+  max-width: 682px;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  #nc-root [class*="CollectionContainer"] {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    > aside {
+      position: relative;
+      width: 100%;
+    }
+
+    > main {
+      padding-left: 0;
+    }
+  }
+}
+
+</style>

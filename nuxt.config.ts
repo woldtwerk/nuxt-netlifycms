@@ -30,6 +30,15 @@ export default async () => {
     },
     experimental: {
       payloadExtraction: false
+    },
+    build: {
+      postcss: {
+        postcssOptions: {
+          plugins: {
+            'postcss-nested': {}
+          }
+        }
+      }
     }
   })
 }
