@@ -1,0 +1,1 @@
+import{a,o,b as r,e as l,t as n,r as s}from"./entry.9e74ea60.js";const p=a({__name:"Card",props:{title:null},setup(e){return(t,c)=>(o(),r("div",null,[l(n(e.title)+" ",1),s(t.$slots,"default")]))}});export{p as default};
